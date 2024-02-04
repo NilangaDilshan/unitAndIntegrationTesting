@@ -1,20 +1,22 @@
-# Project Lombok
+# Getting Started
 
-Project Lombok is a java library that automatically plugs into your editor and build tools, spicing up your java.
-Never write another getter or equals method again, with one annotation your class has a fully featured builder, automate your logging variables, and much more.
+### Reference Documentation
+For further reference, please consider the following sections:
 
-See [LICENSE] for the Project Lombok license.
+* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)
+* [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/3.2.2/maven-plugin/reference/html/)
+* [Create an OCI image](https://docs.spring.io/spring-boot/docs/3.2.2/maven-plugin/reference/html/#build-image)
+* [Spring Data JPA](https://docs.spring.io/spring-boot/docs/3.2.2/reference/htmlsingle/index.html#data.sql.jpa-and-spring-data)
+* [Spring Boot DevTools](https://docs.spring.io/spring-boot/docs/3.2.2/reference/htmlsingle/index.html#using.devtools)
+* [Validation](https://docs.spring.io/spring-boot/docs/3.2.2/reference/htmlsingle/index.html#io.validation)
+* [Spring Web](https://docs.spring.io/spring-boot/docs/3.2.2/reference/htmlsingle/index.html#web)
 
-Looking for professional support of Project Lombok? Lombok is now part of a [tidelift subscription]!
+### Guides
+The following guides illustrate how to use some features concretely:
 
-For a list of all authors, see the [AUTHORS] file. 
+* [Accessing Data with JPA](https://spring.io/guides/gs/accessing-data-jpa/)
+* [Validation](https://spring.io/guides/gs/validating-form-input/)
+* [Building a RESTful Web Service](https://spring.io/guides/gs/rest-service/)
+* [Serving Web Content with Spring MVC](https://spring.io/guides/gs/serving-web-content/)
+* [Building REST services with Spring](https://spring.io/guides/tutorials/rest/)
 
-For complete project information, see [projectlombok.org]
-
-You can review our security policy via [SECURITY.md]
-
-[LICENSE]: https://github.com/projectlombok/lombok/blob/master/LICENSE
-[AUTHORS]: https://github.com/projectlombok/lombok/blob/master/AUTHORS
-[SECURITY.md]: https://github.com/projectlombok/lombok/blob/master/SECURITY.md
-[projectlombok.org]: https://projectlombok.org/
-[tidelift subscription]: https://tidelift.com/subscription/pkg/maven-org-projectlombok-lombok?utm_source=maven-org-projectlombok-lombok&utm_medium=referral&campaign=website
