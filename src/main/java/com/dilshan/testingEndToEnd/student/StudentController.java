@@ -1,7 +1,10 @@
 package com.dilshan.testingEndToEnd.student;
 
 import com.dilshan.testingEndToEnd.student.entities.Student;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,15 +22,18 @@ public class StudentController {
     }
 
     @PostMapping
-    public void addStudent(
-            //@Valid
+    public ResponseEntity<?> addStudent(
+            @Valid
             @RequestBody Student student) {
         studentService.addStudent(student);
+        return ResponseEntity.ok(HttpEntity.EMPTY);
     }
 
     @DeleteMapping(path = "{studentId}")
-    public void deleteStudent(
+    public ResponseEntity<?> deleteStudent(
             @PathVariable("studentId") Long studentId) {
         studentService.deleteStudent(studentId);
+        return ResponseEntity.ok(HttpEntity.EMPTY);
+
     }
 }

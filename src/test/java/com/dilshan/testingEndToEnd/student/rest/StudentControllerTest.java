@@ -1,33 +1,29 @@
 package com.dilshan.testingEndToEnd.student.rest;
 
 import com.dilshan.testingEndToEnd.student.StudentRepository;
+import com.dilshan.testingEndToEnd.student.entities.Gender;
 import com.dilshan.testingEndToEnd.student.entities.Student;
 import lombok.extern.slf4j.Slf4j;
+import org.assertj.core.api.AssertionsForClassTypes;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.jdbc.Sql;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-/*
-//@RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-//@TestPropertySource(locations = "classpath:application.properties")
-@DataJpaTest
-@Sql({"classpath:init-data.sql"})*/
+import java.util.List;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureTestDatabase
-@Sql({"classpath:init-data.sql"})
+//@Sql({"classpath:init-data.sql"})
 @Slf4j
 class StudentControllerTest {
 
@@ -39,39 +35,55 @@ class StudentControllerTest {
     @Autowired
     private TestRestTemplate restTemplate;
 
-    private static final String URL = "/api/v1/students";
-
+    private static String URL;
 
     @BeforeEach
     void setUp() {
+        URL = "http://localhost:" + port + "/api/v1/students";
     }
 
     @AfterEach
     void tearDown() {
+        this.studentRepository.deleteAll();
     }
 
     @Test
+    @Sql({"classpath:init-data.sql"})
     void getAllStudents() {
         log.info("This is test: {}", this.studentRepository.findAll());
     }
 
     @Test
     public void testAddEmployee() throws Exception {
-
-        String requestUrl = "http://localhost:" + port + URL;
-        String response = restTemplate.getForObject(requestUrl, String.class);
+        ResponseEntity<List<Student>> response = restTemplate.exchange(
+                URL,
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<Student>>() {
+                }
+        );
         log.info("This is entity: {}", response);
-        // execute
-        // ResponseEntity<String> responseEntity = restTemplate.getForObject(requestUrl, String.class);
-        //log.info("This is entity: {}", responseEntity);
-
+        AssertionsForClassTypes.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
     }
 
     @Test
     void addStudent() {
+        String email = "dimmu@gmail.com";
+        ResponseEntity<Void> response = restTemplate.postForEntity(URL, Student.builder().name("dimmu").email(email)
+                .gender(Gender.MALE).build(), Void.class);
+        log.info("This is the post request response: {}", response);
     }
 
     @Test
+    @Sql({"classpath:init-data.sql"})
     void deleteStudent() {
+        ResponseEntity<Void> response = restTemplate.exchange(
+                URL + "/1",
+                HttpMethod.DELETE,
+                null,
+                new ParameterizedTypeReference<Void>() {
+                }
+        );
+        log.info("This is the post request response: {}", response);
     }
 }
